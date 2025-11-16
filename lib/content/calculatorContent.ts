@@ -5,7 +5,7 @@ type Example = {
   body: string;
 };
 
-type CalculatorNarrative = {
+export type CalculatorContent = {
   intro: string[];
   howItWorks: string[];
   formulas: string[];
@@ -16,7 +16,7 @@ type CalculatorNarrative = {
   jsonLdFaqs?: { question: string; answer: string }[];
 };
 
-export const calculatorContent: Record<CalculatorSlug, CalculatorNarrative> = {
+export const calculatorContent: Record<CalculatorSlug, CalculatorContent> = {
   'us-take-home-pay-calculator': {
     intro: [
       'Our US take home pay calculator is designed for professionals, contractors, and payroll teams that need to understand what truly lands in a paycheck after taxes. Instead of relying on vague rules of thumb, the tool mirrors United States withholding logic with federal brackets, FICA caps, and optional state income tax. The experience is tuned for speed, mobile reliability, and SEO-friendly clarity so job seekers can compare offers or negotiate raises with data.',

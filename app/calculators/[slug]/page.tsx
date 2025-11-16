@@ -4,7 +4,7 @@ import { AdSlot } from '@/components/AdSlot';
 import { FAQSection } from '@/components/FAQSection';
 import { StructuredData } from '@/components/StructuredData';
 import { calculatorComponents } from '@/components/calculators';
-import { calculatorContent } from '@/lib/content/calculatorContent';
+import { calculatorContent, type CalculatorContent } from '@/lib/content/calculatorContent';
 import {
   calculatorsConfig,
   getCalculator,
@@ -40,7 +40,7 @@ export default function CalculatorPage({ params }: { params: Params }) {
     notFound();
   }
   const CalculatorComponent = calculatorComponents[params.slug];
-  const content = calculatorContent[params.slug];
+  const content: CalculatorContent = calculatorContent[params.slug];
   if (!CalculatorComponent || !content) {
     notFound();
   }

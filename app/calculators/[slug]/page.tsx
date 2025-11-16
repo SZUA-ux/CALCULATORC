@@ -3,9 +3,14 @@ import { notFound } from 'next/navigation';
 import { AdSlot } from '@/components/AdSlot';
 import { FAQSection } from '@/components/FAQSection';
 import { StructuredData } from '@/components/StructuredData';
-import { calculatorComponents, type CalculatorSlug } from '@/components/calculators';
+import { calculatorComponents } from '@/components/calculators';
 import { calculatorContent } from '@/lib/content/calculatorContent';
-import { calculatorsConfig, getCalculator, siteUrl } from '@/lib/calculatorsConfig';
+import {
+  calculatorsConfig,
+  getCalculator,
+  siteUrl,
+  type CalculatorSlug,
+} from '@/lib/calculatorsConfig';
 import { buildMetadata } from '@/lib/seo';
 
 interface Params {
@@ -34,15 +39,14 @@ export default function CalculatorPage({ params }: { params: Params }) {
   if (!calculator) {
     notFound();
   }
-  const slug = calculator.slug as CalculatorSlug;
-  const CalculatorComponent = calculatorComponents[slug];
-  const content = calculatorContent[slug];
+  const CalculatorComponent = calculatorComponents[params.slug];
+  const content = calculatorContent[params.slug];
   if (!CalculatorComponent || !content) {
     notFound();
   }
   const related = calculator.relatedSlugs
     .map((relatedSlug) => calculatorsConfig.find((item) => item.slug === relatedSlug))
-    .filter(Boolean);
+    .filter((item): item is (typeof calculatorsConfig)[number] => Boolean(item));
   const structuredData = [
     {
       '@context': 'https://schema.org',
@@ -86,7 +90,7 @@ export default function CalculatorPage({ params }: { params: Params }) {
     },
   ];
 
-  const guidePath = `/guides/${slug}`;
+  const guidePath = `/guides/${params.slug}`;
 
   return (
     <article className="space-y-8">
@@ -162,12 +166,12 @@ export default function CalculatorPage({ params }: { params: Params }) {
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           {related.map((item) => (
             <Link
-              key={item!.slug}
-              href={item!.path}
+              key={item.slug}
+              href={item.path}
               className="rounded-2xl border border-slate-100 p-4 text-left text-slate-700 hover:border-accent"
             >
-              <h3 className="text-lg font-semibold text-brand">{item!.title}</h3>
-              <p className="mt-2 text-sm">{item!.description}</p>
+              <h3 className="text-lg font-semibold text-brand">{item.title}</h3>
+              <p className="mt-2 text-sm">{item.description}</p>
             </Link>
           ))}
         </div>

@@ -1,12 +1,21 @@
+export type CalculatorSlug =
+  | 'us-take-home-pay-calculator'
+  | 'us-sales-tax-calculator'
+  | 'us-property-tax-calculator'
+  | 'us-ira-retirement-calculator'
+  | 'us-inflation-calculator'
+  | 'ovulation-calculator'
+  | 'temperature-converter';
+
 export type CalculatorConfig = {
-  slug: string;
+  slug: CalculatorSlug;
   title: string;
   primaryKeyword: string;
   secondaryKeywords: string[];
   description: string;
   category: string;
   path: string;
-  relatedSlugs: string[];
+  relatedSlugs: CalculatorSlug[];
   canonical: string;
 };
 
@@ -92,8 +101,6 @@ export const calculatorsConfig: CalculatorConfig[] = [
   },
 ];
 
-export function getCalculator(slug: string) {
+export function getCalculator(slug: CalculatorSlug) {
   return calculatorsConfig.find((calculator) => calculator.slug === slug);
 }
-
-export type CalculatorSlug = (typeof calculatorsConfig)[number]['slug'];

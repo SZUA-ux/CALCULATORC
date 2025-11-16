@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/server';
+import { ImageResponse } from 'next/og';
 
 export const size = { width: 128, height: 128 };
 export const contentType = 'image/png';
